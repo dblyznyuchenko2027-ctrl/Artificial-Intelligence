@@ -1,0 +1,654 @@
+{
+ "1": {
+  "title": "Звичайна чернетка",
+  "env": {},
+  "wall": 1.2,
+  "status": "done",
+  "attempts": 1,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 375,
+  "deltas": 29,
+  "elapsed": {
+   "first_token": 0.3,
+   "total": 1.15,
+   "provider_first_token": 0.3
+  },
+  "error": null,
+  "warnings": [
+   "Це підставний текст (mock), а не відповідь моделі."
+  ],
+  "total_wall": 1.16,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "done {\"provider\": \"mock\", \"attempts\": 1, \"fallback\": false}"
+  ]
+ },
+ "2": {
+  "title": "Таймаут спроби",
+  "env": {
+   "MOCK_FIRST_DELAY_MS": "9000",
+   "LLM_TIMEOUT": "2",
+   "LLM_TOTAL_TIMEOUT": "20"
+  },
+  "wall": 7.4,
+  "status": "failed",
+  "attempts": 3,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 0,
+  "deltas": 0,
+  "elapsed": {
+   "total": 7.29
+  },
+  "error": {
+   "kind": "timeout",
+   "message": "Провайдер не відповів вчасно.",
+   "retryable": true,
+   "draft_id": "d7f204f9",
+   "attempts": 3
+  },
+  "warnings": [],
+  "total_wall": 7.29,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер не відповів вчасно. Повтор через 0.5 с…\", \"pause\": 0.5, \"kind\": \"timeout\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 2 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер не відповів вчасно. Повтор через 0.8 с…\", \"pause\": 0.8, \"kind\": \"timeout\", \"status\": \"running\"}",
+   "status {\"attempt\": 3, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 3 з 3\", \"status\": \"running\"}",
+   "error {\"kind\": \"timeout\", \"message\": \"Провайдер не відповів вчасно.\", \"retryable\": true, \"attempts\": 3, \"partial\": false}"
+  ]
+ },
+ "3": {
+  "title": "Таймаут бездіяльності",
+  "env": {
+   "MOCK_DELAY_MS": "2500",
+   "LLM_IDLE_TIMEOUT": "1",
+   "LLM_TIMEOUT": "10",
+   "LLM_TOTAL_TIMEOUT": "20"
+  },
+  "wall": 5.4,
+  "status": "failed",
+  "attempts": 3,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 13,
+  "deltas": 3,
+  "elapsed": {
+   "first_token": 0.3,
+   "total": 5.24
+  },
+  "error": {
+   "kind": "timeout",
+   "message": "Провайдер замовк посеред чернетки.",
+   "retryable": true,
+   "draft_id": "18302005",
+   "attempts": 3
+  },
+  "warnings": [],
+  "total_wall": 5.29,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер замовк посеред чернетки. Повтор через 0.3 с…\", \"pause\": 0.3, \"kind\": \"timeout\", \"status\": \"running\"}",
+   "reset {\"detail\": \"обрив — починаємо чернетку спочатку\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 2 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер замовк посеред чернетки. Повтор через 1.0 с…\", \"pause\": 1.0, \"kind\": \"timeout\", \"status\": \"running\"}",
+   "reset {\"detail\": \"обрив — починаємо чернетку спочатку\"}",
+   "status {\"attempt\": 3, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 3 з 3\", \"status\": \"running\"}",
+   "error {\"kind\": \"timeout\", \"message\": \"Провайдер замовк посеред чернетки.\", \"retryable\": true, \"attempts\": 3, \"partial\": true}"
+  ]
+ },
+ "4": {
+  "title": "Тимчасовий збій, повтор рятує",
+  "env": {
+   "MOCK_FAIL_ATTEMPTS": "2"
+  },
+  "wall": 3.2,
+  "status": "done",
+  "attempts": 3,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 375,
+  "deltas": 29,
+  "elapsed": {
+   "first_token": 2.24,
+   "total": 3.08,
+   "provider_first_token": 0.3
+  },
+  "error": null,
+  "warnings": [
+   "Це підставний текст (mock), а не відповідь моделі."
+  ],
+  "total_wall": 3.12,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер тимчасово недоступний. Повтор через 0.4 с…\", \"pause\": 0.4, \"kind\": \"unavailable\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 2 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер тимчасово недоступний. Повтор через 1.0 с…\", \"pause\": 1.0, \"kind\": \"unavailable\", \"status\": \"running\"}",
+   "status {\"attempt\": 3, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 3 з 3\", \"status\": \"running\"}",
+   "done {\"provider\": \"mock\", \"attempts\": 3, \"fallback\": false}"
+  ]
+ },
+ "5": {
+  "title": "Збій назавжди",
+  "env": {
+   "MOCK_FAILURE_RATE": "1"
+  },
+  "wall": 2.7,
+  "status": "failed",
+  "attempts": 3,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 0,
+  "deltas": 0,
+  "elapsed": {
+   "total": 2.46
+  },
+  "error": {
+   "kind": "unavailable",
+   "message": "Провайдер тимчасово недоступний.",
+   "retryable": true,
+   "draft_id": "46141e2a",
+   "attempts": 3
+  },
+  "warnings": [],
+  "total_wall": 2.56,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер тимчасово недоступний. Повтор через 0.5 с…\", \"pause\": 0.5, \"kind\": \"unavailable\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 2 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер тимчасово недоступний. Повтор через 1.0 с…\", \"pause\": 1.0, \"kind\": \"unavailable\", \"status\": \"running\"}",
+   "status {\"attempt\": 3, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 3 з 3\", \"status\": \"running\"}",
+   "error {\"kind\": \"unavailable\", \"message\": \"Провайдер тимчасово недоступний.\", \"retryable\": true, \"attempts\": 3, \"partial\": false}"
+  ]
+ },
+ "6": {
+  "title": "Запасний варіант",
+  "env": {
+   "MOCK_FAILURE_RATE": "1",
+   "LLM_FALLBACK": "mock"
+  },
+  "wall": 3.9,
+  "status": "done",
+  "attempts": 4,
+  "fallback": true,
+  "provider": "mock",
+  "text_len": 375,
+  "deltas": 29,
+  "elapsed": {
+   "first_token": 3.0,
+   "total": 3.85,
+   "provider_first_token": 0.3
+  },
+  "error": null,
+  "warnings": [
+   "Запасний варіант: основна модель не впоралась — це не її відповідь. Перевірте текст особливо уважно."
+  ],
+  "total_wall": 3.86,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер тимчасово недоступний. Повтор через 0.4 с…\", \"pause\": 0.4, \"kind\": \"unavailable\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 2 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер тимчасово недоступний. Повтор через 1.4 с…\", \"pause\": 1.4, \"kind\": \"unavailable\", \"status\": \"running\"}",
+   "status {\"attempt\": 3, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 3 з 3\", \"status\": \"running\"}",
+   "status {\"fallback\": true, \"detail\": \"основний провайдер не впорався — запасний варіант\", \"status\": \"running\"}",
+   "status {\"attempt\": 4, \"provider\": \"mock\", \"fallback\": true, \"detail\": \"запасний варіант\", \"status\": \"running\"}",
+   "done {\"provider\": \"mock\", \"attempts\": 4, \"fallback\": true}"
+  ]
+ },
+ "6b": {
+  "title": "Запасний: основний без ключа",
+  "env": {
+   "LLM_PROVIDER": "openai",
+   "LLM_FALLBACK": "mock"
+  },
+  "wall": 1.2,
+  "status": "done",
+  "attempts": 1,
+  "fallback": true,
+  "provider": "mock",
+  "text_len": 375,
+  "deltas": 29,
+  "elapsed": {
+   "first_token": 0.3,
+   "total": 1.15,
+   "provider_first_token": 0.3
+  },
+  "error": null,
+  "warnings": [
+   "Запасний варіант: основна модель не впоралась — це не її відповідь. Перевірте текст особливо уважно."
+  ],
+  "total_wall": 1.16,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"fallback\": true, \"detail\": \"основний провайдер не впорався — запасний варіант\", \"status\": \"queued\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": true, \"detail\": \"запасний варіант\", \"status\": \"running\"}",
+   "done {\"provider\": \"mock\", \"attempts\": 1, \"fallback\": true}"
+  ]
+ },
+ "7": {
+  "title": "Збій без повтору (auth)",
+  "env": {
+   "MOCK_FAILURE_RATE": "1",
+   "MOCK_FAILURE_KIND": "auth"
+  },
+  "wall": 0.3,
+  "status": "failed",
+  "attempts": 1,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 0,
+  "deltas": 0,
+  "elapsed": {
+   "total": 0.2
+  },
+  "error": {
+   "kind": "auth",
+   "message": "Помилка доступу до моделі. Зверніться до адміністратора.",
+   "retryable": false,
+   "draft_id": "9a42518b",
+   "attempts": 1
+  },
+  "warnings": [],
+  "total_wall": 0.2,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "error {\"kind\": \"auth\", \"message\": \"Помилка доступу до моделі. Зверніться до адміністратора.\", \"retryable\": false, \"attempts\": 1, \"partial\": false}"
+  ]
+ },
+ "8": {
+  "title": "429, Retry-After вміщується",
+  "env": {
+   "MOCK_FAILURE_RATE": "1",
+   "MOCK_FAILURE_KIND": "rate_limit",
+   "MOCK_RETRY_AFTER_S": "2"
+  },
+  "wall": 4.7,
+  "status": "failed",
+  "attempts": 3,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 0,
+  "deltas": 0,
+  "elapsed": {
+   "total": 4.6
+  },
+  "error": {
+   "kind": "rate_limit",
+   "message": "Провайдер просить зачекати: забагато запитів.",
+   "retryable": true,
+   "draft_id": "eb2cfefd",
+   "attempts": 3
+  },
+  "warnings": [],
+  "total_wall": 4.62,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер просить зачекати: забагато запитів. Повтор через 2.0 с…\", \"pause\": 2.0, \"kind\": \"rate_limit\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 2 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер просить зачекати: забагато запитів. Повтор через 2.0 с…\", \"pause\": 2.0, \"kind\": \"rate_limit\", \"status\": \"running\"}",
+   "status {\"attempt\": 3, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 3 з 3\", \"status\": \"running\"}",
+   "error {\"kind\": \"rate_limit\", \"message\": \"Провайдер просить зачекати: забагато запитів.\", \"retryable\": true, \"attempts\": 3, \"partial\": false}"
+  ]
+ },
+ "8b": {
+  "title": "429, Retry-After 90 с > бюджет",
+  "env": {
+   "MOCK_FAILURE_RATE": "1",
+   "MOCK_FAILURE_KIND": "rate_limit",
+   "MOCK_RETRY_AFTER_S": "90"
+  },
+  "wall": 0.3,
+  "status": "failed",
+  "attempts": 1,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 0,
+  "deltas": 0,
+  "elapsed": {
+   "total": 0.2
+  },
+  "error": {
+   "kind": "rate_limit",
+   "message": "Провайдер просить зачекати: забагато запитів.",
+   "retryable": true,
+   "draft_id": "1618111f",
+   "attempts": 1
+  },
+  "warnings": [],
+  "total_wall": 0.25,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "status {\"detail\": \"повтор не вкладається в час (90 с паузи, лишилось 12 с)\", \"status\": \"running\"}",
+   "error {\"kind\": \"rate_limit\", \"message\": \"Провайдер просить зачекати: забагато запитів.\", \"retryable\": true, \"attempts\": 1, \"partial\": false}"
+  ]
+ },
+ "9": {
+  "title": "Обрив посеред потоку, повтор рятує",
+  "env": {
+   "MOCK_FAIL_ATTEMPTS": "1",
+   "MOCK_FAILURE_KIND": "mid_stream"
+  },
+  "wall": 2.1,
+  "status": "done",
+  "attempts": 2,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 375,
+  "deltas": 34,
+  "elapsed": {
+   "first_token": 0.3,
+   "total": 1.94,
+   "provider_first_token": 0.3
+  },
+  "error": null,
+  "warnings": [
+   "Це підставний текст (mock), а не відповідь моделі."
+  ],
+  "total_wall": 1.96,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"З'єднання з провайдером обірвалося. Повтор через 0.3 с…\", \"pause\": 0.3, \"kind\": \"unavailable\", \"status\": \"running\"}",
+   "reset {\"detail\": \"обрив — починаємо чернетку спочатку\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 2 з 3\", \"status\": \"running\"}",
+   "done {\"provider\": \"mock\", \"attempts\": 2, \"fallback\": false}"
+  ]
+ },
+ "9b": {
+  "title": "Обрив посеред потоку назавжди",
+  "env": {
+   "MOCK_FAILURE_RATE": "1",
+   "MOCK_FAILURE_KIND": "mid_stream"
+  },
+  "wall": 3.0,
+  "status": "failed",
+  "attempts": 3,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 73,
+  "deltas": 15,
+  "elapsed": {
+   "first_token": 0.3,
+   "total": 2.95
+  },
+  "error": {
+   "kind": "unavailable",
+   "message": "З'єднання з провайдером обірвалося.",
+   "retryable": true,
+   "draft_id": "604b88a8",
+   "attempts": 3
+  },
+  "warnings": [],
+  "total_wall": 2.97,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"З'єднання з провайдером обірвалося. Повтор через 0.5 с…\", \"pause\": 0.5, \"kind\": \"unavailable\", \"status\": \"running\"}",
+   "reset {\"detail\": \"обрив — починаємо чернетку спочатку\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 2 з 3\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"З'єднання з провайдером обірвалося. Повтор через 1.1 с…\", \"pause\": 1.1, \"kind\": \"unavailable\", \"status\": \"running\"}",
+   "reset {\"detail\": \"обрив — починаємо чернетку спочатку\"}",
+   "status {\"attempt\": 3, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 3 з 3\", \"status\": \"running\"}",
+   "error {\"kind\": \"unavailable\", \"message\": \"З'єднання з провайдером обірвалося.\", \"retryable\": true, \"attempts\": 3, \"partial\": true}"
+  ]
+ },
+ "10": {
+  "title": "Бюджет часу менший за спроби",
+  "env": {
+   "MOCK_FIRST_DELAY_MS": "9000",
+   "LLM_TIMEOUT": "3",
+   "LLM_TOTAL_TIMEOUT": "5",
+   "LLM_MAX_ATTEMPTS": "5"
+  },
+  "wall": 5.1,
+  "status": "failed",
+  "attempts": 2,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 0,
+  "deltas": 0,
+  "elapsed": {
+   "total": 5.0
+  },
+  "error": {
+   "kind": "timeout",
+   "message": "Вичерпано час, відведений на чернетку.",
+   "retryable": true,
+   "draft_id": "329b7769",
+   "attempts": 2
+  },
+  "warnings": [],
+  "total_wall": 5.0,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 5\", \"status\": \"running\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"Провайдер не відповів вчасно. Повтор через 0.4 с…\", \"pause\": 0.4, \"kind\": \"timeout\", \"status\": \"running\"}",
+   "status {\"attempt\": 2, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 2 з 5\", \"status\": \"running\"}",
+   "status {\"detail\": \"повтор не вкладається в час (1 с паузи, лишилось 0 с)\", \"status\": \"running\"}",
+   "error {\"kind\": \"timeout\", \"message\": \"Вичерпано час, відведений на чернетку.\", \"retryable\": true, \"attempts\": 2, \"partial\": false}"
+  ]
+ },
+ "11": {
+  "title": "Скасування під час генерації",
+  "env": {
+   "MOCK_DELAY_MS": "150"
+  },
+  "wall": 2.8,
+  "status": "cancelled",
+  "attempts": 1,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 90,
+  "deltas": 6,
+  "elapsed": {
+   "first_token": 0.3
+  },
+  "error": null,
+  "warnings": [],
+  "total_wall": 2.7,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "cancelled {}"
+  ],
+  "text_at_cancel": 90,
+  "text_after_1.5s": 90,
+  "second_cancel": "AlreadyFinished: чернетка вже має статус cancelled"
+ },
+ "12": {
+  "title": "Скасування завершеної",
+  "env": {},
+  "wall": 1.3,
+  "status": "done",
+  "attempts": 1,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 375,
+  "deltas": 29,
+  "elapsed": {
+   "first_token": 0.3,
+   "total": 1.16,
+   "provider_first_token": 0.3
+  },
+  "error": null,
+  "warnings": [
+   "Це підставний текст (mock), а не відповідь моделі."
+  ],
+  "total_wall": 1.21,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "done {\"provider\": \"mock\", \"attempts\": 1, \"fallback\": false}"
+  ],
+  "cancel": "AlreadyFinished (409): чернетка вже має статус done",
+  "cancel_unknown": "NotFound (404)",
+  "status_after": "done"
+ },
+ "13": {
+  "title": "Перепідключення (відтворення подій)",
+  "env": {
+   "MOCK_DELAY_MS": "100"
+  },
+  "wall": 3.2,
+  "status": "done",
+  "attempts": 1,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 375,
+  "deltas": 29,
+  "elapsed": {
+   "first_token": 0.3,
+   "total": 3.12,
+   "provider_first_token": 0.3
+  },
+  "error": null,
+  "warnings": [
+   "Це підставний текст (mock), а не відповідь моделі."
+  ],
+  "total_wall": 3.12,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "done {\"provider\": \"mock\", \"attempts\": 1, \"fallback\": false}"
+  ],
+  "events_when_reopened": 9,
+  "events_replayed": 32,
+  "replay_text_equals": true,
+  "last_event_id_resume_first_id": 11
+ },
+ "14": {
+  "title": "П'ять поспіль, одночасність 2",
+  "env": {
+   "MOCK_FIRST_DELAY_MS": "1000"
+  },
+  "wall": 5.7,
+  "after_0.5s": [
+   "running",
+   "running",
+   "queued",
+   "queued",
+   "queued"
+  ],
+  "wall_all_done": 5.64,
+  "drafts": [
+   {
+    "status": "done",
+    "first_token": 1.0,
+    "total": 1.93,
+    "queue_details": []
+   },
+   {
+    "status": "done",
+    "first_token": 1.0,
+    "total": 1.93,
+    "queue_details": []
+   },
+   {
+    "status": "done",
+    "first_token": 2.93,
+    "total": 3.78,
+    "queue_details": [
+     "у черзі: усі 2 місця до моделі зайняті, ви наступні"
+    ]
+   },
+   {
+    "status": "done",
+    "first_token": 2.93,
+    "total": 3.78,
+    "queue_details": [
+     "у черзі: усі 2 місця до моделі зайняті, попереду 1"
+    ]
+   },
+   {
+    "status": "done",
+    "first_token": 4.78,
+    "total": 5.63,
+    "queue_details": [
+     "у черзі: усі 2 місця до моделі зайняті, попереду 2",
+     "у черзі: усі 2 місця до моделі зайняті, попереду 1",
+     "у черзі: усі 2 місця до моделі зайняті, ви наступні"
+    ]
+   }
+  ]
+ },
+ "15": {
+  "title": "Ліміт на клієнта",
+  "env": {},
+  "wall": 0.1,
+  "accepted": 10,
+  "denied": 3,
+  "retry_after": [
+   60.0,
+   60.0,
+   60.0
+  ],
+  "other_client_ok": true,
+  "passes_just_before_retry_after": false,
+  "passes_after_retry_after": true
+ },
+ "17": {
+  "title": "Без ключа, mock",
+  "env": {},
+  "wall": 1.2,
+  "status": "done",
+  "attempts": 1,
+  "fallback": false,
+  "provider": "mock",
+  "text_len": 375,
+  "deltas": 29,
+  "elapsed": {
+   "first_token": 0.3,
+   "total": 1.16,
+   "provider_first_token": 0.3
+  },
+  "error": null,
+  "warnings": [
+   "Це підставний текст (mock), а не відповідь моделі."
+  ],
+  "total_wall": 1.16,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "status {\"attempt\": 1, \"provider\": \"mock\", \"fallback\": false, \"detail\": \"спроба 1 з 3\", \"status\": \"running\"}",
+   "done {\"provider\": \"mock\", \"attempts\": 1, \"fallback\": false}"
+  ]
+ },
+ "17b": {
+  "title": "Без ключа, openai, без запасного",
+  "env": {
+   "LLM_PROVIDER": "openai"
+  },
+  "wall": 0.1,
+  "status": "failed",
+  "attempts": 0,
+  "fallback": false,
+  "provider": null,
+  "text_len": 0,
+  "deltas": 0,
+  "elapsed": {
+   "total": 0.0
+  },
+  "error": {
+   "kind": "auth",
+   "message": "Ключ доступу до моделі не налаштовано. Зверніться до адміністратора.",
+   "retryable": false,
+   "draft_id": "3e95cdf6",
+   "attempts": 0
+  },
+  "warnings": [],
+  "total_wall": 0.0,
+  "timeline": [
+   "status {\"status\": \"queued\", \"detail\": \"у черзі\"}",
+   "error {\"kind\": \"auth\", \"message\": \"Ключ доступу до моделі не налаштовано. Зверніться до адміністратора.\", \"retryable\": false, \"attempts\": 0, \"partial\": false}"
+  ]
+ }
+}
